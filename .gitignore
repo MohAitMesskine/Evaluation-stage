@@ -1,0 +1,11 @@
+# Front‑end React
+evaluation-frontend/node_modules/
+evaluation-frontend/build/
+
+# Back‑end Spring Boot
+evaluation-backend/target/
+*.class
+
+# Fichiers système
+.DS_Store
+Thumbs.db
