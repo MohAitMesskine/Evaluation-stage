@@ -1,15 +1,23 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Sidebar from './components/Sidebar';
-import Dashboard from './components/Dashboard';
-import Etape1 from './pages/Etape1';
-import Etape2 from './pages/Etape2';
-import Etape3 from './pages/Etape3';
-import Etape4 from './pages/Etape4';
-import Etape5 from './pages/Etape5';
-import Confirmation from './pages/Confirmation';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+  useLocation,
+} from 'react-router-dom';
+import Header from './components/Header.js';
+import Sidebar from './components/Sidebar.js';
+import Footer from './components/Footer.js';
+import Dashboard from './components/Dashboard.js';
+import Login from './pages/Login.js';
+import PrivateRoute from './components/PrivateRoute.js';
+import Etape1 from './pages/Etape1.js';
+import Etape2 from './pages/Etape2.js';
+import Etape3 from './pages/Etape3.js';
+import Etape4 from './pages/Etape4.js';
+import Etape5 from './pages/Etape5.js';
+import Confirmation from './pages/Confirmation.js';
 
 function App() {
   return (
@@ -21,27 +29,35 @@ function App() {
 
 function Layout() {
   const { pathname } = useLocation();
-  const showSidebar = pathname === '/' || pathname.startsWith('/inscription');
+  const showSidebar = pathname !== '/login';
 
   return (
     <div className="flex flex-col min-h-screen">
-      <Header />
+      {showSidebar && <Header />}
       <div className="flex flex-1">
         {showSidebar && <Sidebar />}
         <main className="flex-1">
           <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/inscription/etape1" element={<Etape1 />} />
-            <Route path="/inscription/etape2" element={<Etape2 />} />
-            <Route path="/inscription/etape3" element={<Etape3 />} />
-            <Route path="/inscription/etape4" element={<Etape4 />} />
-            <Route path="/inscription/etape5" element={<Etape5 />} />
-            <Route path="/confirmation" element={<Confirmation />} />
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route path="/inscription/etape1" element={<PrivateRoute><Etape1 /></PrivateRoute>} />
+            <Route path="/inscription/etape2" element={<PrivateRoute><Etape2 /></PrivateRoute>} />
+            <Route path="/inscription/etape3" element={<PrivateRoute><Etape3 /></PrivateRoute>} />
+            <Route path="/inscription/etape4" element={<PrivateRoute><Etape4 /></PrivateRoute>} />
+            <Route path="/inscription/etape5" element={<PrivateRoute><Etape5 /></PrivateRoute>} />
+            <Route path="/confirmation" element={<PrivateRoute><Confirmation /></PrivateRoute>} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </main>
       </div>
-      <Footer />
+       {showSidebar && <Footer />}
     </div>
   );
 }

@@ -1,14 +1,27 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { logout } from '../services/auth';
 
 export default function Header() {
   const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   return (
-    <header className="w-full bg-white shadow-md p-4 flex justify-between items-center">
-      <h1 className="text-2xl font-bold cursor-pointer" onClick={() => navigate('/')}> Projet de gestion evaluation des Stages</h1>
-      <nav className="space-x-4"> 
-        <button className="text-gray-700 hover:text-gray-900" onClick={() => navigate('/')}>Dashboard</button>
-        <button className="text-gray-700 hover:text-gray-900" onClick={() => navigate('/inscription/etape1')}>Inscription</button>
+    <header className="p-4 bg-white shadow flex justify-between">
+      <div>
+        <Link to="/">Home</Link>
+      </div>
+      <nav>
+        {token ? (
+          <button onClick={handleLogout}>Déconnexion</button>
+        ) : (
+          <Link to="/login">Connexion</Link>
+        )}
       </nav>
     </header>
   );
