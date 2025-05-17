@@ -12,9 +12,8 @@ public class EvaluationApplication {
 		SpringApplication.run(EvaluationApplication.class, args);
 
 		// Code de test de mot de passe ici
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		String rawPassword = "admin123";
-		String hash = encoder.encode(rawPassword);
-		System.out.println("Hash généré : " + hash);
+
+
+
 	}
 }
