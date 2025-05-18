@@ -42,5 +42,5 @@ Ce projet est développé avec une architecture moderne séparant le frontend et
 
 1. Cloner le dépôt :
 ```bash
-git clone https://github.com/votre-organisation/evaluation-stage.git
+git clone https://github.com/MohAitMesskine/Evaluation-stage.git
 cd evaluation-stage/backend
